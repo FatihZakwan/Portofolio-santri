@@ -17,4 +17,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Route untuk halaman Kategori
+Route::get('/category', function () {
+    // Ini mengarah ke folder 'category' -> file 'category.blade.php'
+    return view('category.category');
+});
 require __DIR__.'/auth.php';
