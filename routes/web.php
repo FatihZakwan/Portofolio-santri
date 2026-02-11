@@ -1,20 +1,70 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $projects = [
+        [
+            'slug' => 'smart-feeder',
+            'judul' => 'Design Poster',
+            'kategori' => 'DKV',
+            'image' => 'ariq.jpg',
+        ],
+    ];
+
+    return view('welcome', compact('projects'));
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/detail/{slug}', function ($slug) {
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    $projects = [
+        'dkv-branding' => [
+            'judul' => 'Branding Poster Pesantren',
+            'kategori' => 'DKV',
+            'image' => 'ariq.jpg',
+            'deskripsi' =>
+                'Proyek branding visual yang menampilkan identitas pesantren
+                dalam bentuk poster modern. Fokus pada tipografi, warna,
+                dan komposisi agar pesan tersampaikan dengan kuat dan elegan.',
+        ],
+
+        'web-portfolio' => [
+            'judul' => 'Portfolio Website Santri',
+            'kategori' => 'Programmer',
+            'image' => 'prog1.jpg',
+            'deskripsi' =>
+                'Website portofolio interaktif yang menampilkan karya santri
+                dari berbagai bidang. Dibangun dengan Laravel dan Tailwind
+                untuk menghasilkan tampilan bersih, modern, dan responsif.',
+        ],
+
+        'smart-feeder' => [
+            'judul' => 'Smart Feeder IoT',
+            'kategori' => 'IoT',
+            'image' => 'iot1.jpg',
+            'deskripsi' =>
+                'Alat pemberi pakan ikan otomatis berbasis ESP32.
+                Sistem ini mampu bekerja terjadwal dan dikontrol
+                secara efisien untuk kebutuhan budidaya.',
+        ],
+
+        '2d-platformer' => [
+            'judul' => '2D Platformer Game',
+            'kategori' => 'Game Dev',
+            'image' => 'game1.jpg',
+            'deskripsi' =>
+                'Game 2D bertema petualangan dengan mekanik lompat,
+                rintangan, dan level progresif. Dibuat sebagai
+                eksplorasi logika, desain level, dan gameplay.',
+        ],
+    ];
+
+    if (!isset($projects[$slug])) {
+        abort(404);
+    }
+
+    return view('detail.detail', [
+        'project' => $projects[$slug]
+    ]);
 });
-
-require __DIR__.'/auth.php';
