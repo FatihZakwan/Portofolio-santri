@@ -133,7 +133,7 @@
 
             
         </div>
-        <div class="container mx-auto max-w-[1600px]">
+        <div class="container mx-auto max-w-[1600px] px-6">
 
             @php
             $projects = [
