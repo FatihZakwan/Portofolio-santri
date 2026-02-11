@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    background-color: #ffffff; 
+    overflow-x: hidden;
+}
+
+/* Blob Gradient Style */
+.gradient-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px); /* Blur tinggi biar nyatu kayak asap/awan */
+    opacity: 0.6;        /* Transparansi biar gak nabrak teks */
+    z-index: -1;         /* Pastikan di belakang */
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }

@@ -11,47 +11,27 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <style>
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #ffffff; 
-            overflow-x: hidden;
-        }
-
-        /* Blob Gradient Style */
-        .gradient-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px); /* Blur tinggi biar nyatu kayak asap/awan */
-            opacity: 0.6;        /* Transparansi biar gak nabrak teks */
-            z-index: -1;         /* Pastikan di belakang */
-        }
-
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-    </style>
+    
 </head>
 <body class="antialiased relative min-h-screen text-slate-800">
 
-    <div class="fixed inset-0 w-full h-full overflow-hidden pointer-events-none bg-white">
-        <div class="gradient-blob bg-purple-700 w-[300px] h-[300px] top-0 left-0" id="blob1"></div>
-        <div class="gradient-blob bg-blue-500 w-[400px] h-[400px] top-0 right-0" id="blob2"></div>
-        <div class="gradient-blob bg-orange-400 w-[450px] h-[450px] bottom-0 left-0" id="blob3"></div>
-        <div class="gradient-blob bg-red-400 w-[350px] h-[350px] bottom-0 right-0" id="blob4"></div>
-    </div>
+    <x-gradient/>
 
     <x-navbar />
 
     <header class="relative pt-44 pb-20 px-4 text-center z-10">
         <div class="max-w-4xl mx-auto">
+            
             <h1 class="text-6xl md:text-8xl font-extrabold mb-8 tracking-tight text-slate-900 leading-tight">
                 Galeri Karya <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-orange-500 to-red-500 ">Santri Impian.</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-orange-500 to-red-500 animate-pulse">Santri Impian.</span>
             </h1>
+            
             <p class="text-slate-500 text-xl md:text-2xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">
                 Wadah kreasi tanpa batas. Menampilkan inovasi teknologi dan seni terbaik dari lingkungan pesantren.
             </p>
 
-            <div class="relative max-w-2xl mx-auto group">
+            <div class="relative max-w-2xl mx-auto group mb-10">
                 <div class="absolute inset-0 bg-gradient-to-r from-purple-200 to-orange-200 rounded-full blur-xl opacity-30 group-hover:opacity-50 transition duration-500"></div>
                 <div class="relative bg-white/60 backdrop-blur-xl border border-white rounded-full p-2 flex items-center shadow-xl hover:shadow-2xl transition-all hover:scale-[1.01]">
                     <div class="pl-5 text-slate-400">
@@ -62,8 +42,48 @@
                 </div>
             </div>
 
-            
-        </div>
+            <div x-data="{ 
+                activeCat: null, 
+                categories: {
+                    'Programming': ['Web Development', 'Mobile App', 'IoT System', 'Machine Learning'],
+                    'DKV': ['Graphic Design', 'Logo & Branding', 'UI/UX Design', 'ilustrasi'],
+                    'Game': ['2D Animation', '3D Modeling', 'Motion Graphic', 'VFX'],
+                    'Media': ['Literasi', 'Foto', 'Video']
+                }
+            }" class="space-y-6">
+
+                <div class="flex flex-wrap justify-center gap-3">
+                    <template x-for="(subs, cat) in categories" :key="cat">
+                        <button 
+                            @click="activeCat = (activeCat === cat ? null : cat)"
+                            :class="activeCat === cat ? 'bg-slate-900 text-white border-slate-900' : 'bg-white/40 text-slate-600 border-white/60 hover:bg-white/70'"
+                            class="backdrop-blur-md border px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 hover:scale-105 shadow-xl"
+                            x-text="cat">
+                        </button>
+                    </template>
+                </div>
+
+                <div x-show="activeCat" 
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 -translate-y-4"
+                     x-transition:enter-end="opacity-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-200"
+                     x-transition:leave-start="opacity-100 translate-y-0"
+                     x-transition:leave-end="opacity-0 -translate-y-4"
+                     class="relative">
+                    
+                    <div class="absolute left-1/2 -translate-x-1/2 -top-2 w-4 h-4 bg-white/40 backdrop-blur-md border-l border-t border-white/60 rotate-45"></div>
+
+                    <div class="inline-flex flex-wrap justify-center gap-2 p-4 bg-white/40 backdrop-blur-xl border border-white/50 rounded-2xl shadow-lg max-w-3xl">
+                        <template x-for="sub in categories[activeCat]" :key="sub">
+                            <a href="#" class="px-4 py-1.5 rounded-full bg-white/60 hover:bg-orange-500 hover:text-white text-slate-600 text-xs font-semibold border border-white/50 transition-all duration-200 cursor-pointer" x-text="sub">
+                            </a>
+                        </template>
+                    </div>
+                </div>
+
+            </div>
+            </div>
     </header>
 
     <main class="px-4 md:px-8 pb-32 relative z-10">
@@ -107,37 +127,8 @@
         </div>
     </main>
 
-    <footer class="text-center py-10 text-slate-400 text-sm relative z-10">
-        &copy; 2026 PondokKarya.
-    </footer>
+    <x-footer/>
 
-    <script>
-        // Kita seleksi semua elemen dengan class 'gradient-blob'
-        const blobs = gsap.utils.toArray(".gradient-blob");
-
-        blobs.forEach((blob) => {
-            gsap.to(blob, {
-                // Gerak Random X & Y (Jauh banget, rentang -400px sampai 400px dari posisi asal)
-                x: "random(-400, 400)", 
-                y: "random(-200, 800)",
-                
-                // Skala nafas (membesar mengecil random)
-                scale: "random(0.8, 1.5)",
-                
-                // Durasi lambat (10-20 detik) biar smooth kayak air
-                duration: "random(5, 10)",
-                
-                // Ease 'sine.inOut' bikin gerakan luwes kayak ombak
-                ease: "sine.inOut",
-                
-                // Ulang selamanya
-                repeat: -1,
-                
-                // PENTING: repeatRefresh: true bikin GSAP ngitung ulang koordinat random
-                // setiap kali animasi selesai satu putaran. Jadi jalurnya GAK AKAN SAMA.
-                repeatRefresh: true 
-            });
-        });
-    </script>
+    
 </body>
 </html>

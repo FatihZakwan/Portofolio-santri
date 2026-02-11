@@ -93,6 +93,6 @@
     </div>
 
 </div>
-            <a href="/category" class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-orange-600 transition-colors shadow-lg">Upload Karya</a>
+            <a href="/add-project" class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-orange-600 transition-colors shadow-lg">Upload Karya</a>
         </div>
     </nav>

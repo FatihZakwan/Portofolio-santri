@@ -19,7 +19,23 @@ Route::middleware('auth')->group(function () {
 
 // Route untuk halaman Kategori
 Route::get('/category', function () {
-    // Ini mengarah ke folder 'category' -> file 'category.blade.php'
+    
     return view('category.category');
+});
+
+Route::get('/category/programming', function () {
+    
+    return view('category.programming');
+});
+
+Route::get('/project', function () {
+    
+    return view('project.project');
+});
+
+
+Route::get('/add-project', function () {
+    
+    return view('add-project.add-project');
 });
 require __DIR__.'/auth.php';

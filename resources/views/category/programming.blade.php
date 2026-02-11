@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kategori - PortoSantri</title>
+    <title>Kategori - Programming | PondokKarya</title>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
@@ -57,14 +57,14 @@
            
 
             <h1 class="text-7xl md:text-9xl font-extrabold mb-8 tracking-tighter text-slate-900 leading-none">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-orange-500">DKV</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-orange-500">Programming</span>
             </h1>
 
             
 
             <div class="flex flex-wrap justify-center gap-3">
-                @foreach(['Logo & Branding'] as $sub)
-                    <a href="#" class="glass-pill px-6 py-2.5 rounded-full text-sm font-bold text-slate-600 hover:bg-white hover:text-orange-600 hover:scale-105 transition-all duration-300 shadow-xl">
+                @foreach(['Web Development'] as $sub)
+                    <a href="#" class="glass-pill px-6 py-2.5 rounded-full text-sm font-bold text-slate-600 hover:bg-white hover:text-orange-600 hover:scale-105 transition-all duration-300 shadow-lg">
                         {{ $sub }}
                     </a>
                 @endforeach
@@ -74,8 +74,56 @@
 
 
     <main class="relative z-10 overflow-hidden pb-20">
-    <div class="py-16  mb-20 relative">
+        <div class="container mx-auto max-w-[1600px] px-4 md:px-10">
+
+            <div class="mb-24">
+                
+
+                @php
+                $topProjects = [
+                    ['title' => 'Sistem Smart Garden AI', 'desc' => 'Otomasi penyiraman dengan machine learning.', 'auth' => 'Santri Tech', 'img' => 'https://picsum.photos/800/600?random=1'],
+                    ['title' => 'E-Tahfidz Pro', 'desc' => 'Platform manajemen hafalan Quran realtime.', 'auth' => 'Mobile Div', 'img' => 'https://picsum.photos/800/600?random=2'],
+                    ['title' => 'Masjid Super App', 'desc' => 'Integrasi infaq, jadwal, dan kajian.', 'auth' => 'Fatih Dev', 'img' => 'https://picsum.photos/800/600?random=3'],
+                    ['title' => 'Robot Pemadam Api', 'desc' => 'Juara 1 Kontes Robotik Nasional 2025.', 'auth' => 'Robo Squad', 'img' => 'https://picsum.photos/800/600?random=4'],
+                    ['title' => 'Film Pendek: "Pulang"', 'desc' => 'Sinematografi kehidupan santri modern.', 'auth' => 'Cinema Club', 'img' => 'https://picsum.photos/800/600?random=5'],
+                    ['title' => 'Poster Dakwah Viral', 'desc' => 'Koleksi aset visual dakwah instagram.', 'auth' => 'DKV Team', 'img' => 'https://picsum.photos/800/600?random=6'],
+                ];
+                @endphp
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach($topProjects as $index => $top)
+                        <a href="/project" class="group relative rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 block h-[450px] border border-slate-100">
+                            <img src="{{ $top['img'] }}" alt="{{ $top['title'] }}" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
+                            
+                            
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8">
+                                <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <h3 class="text-white text-2xl font-bold mb-2 leading-tight group-hover:text-orange-400 transition-colors">{{ $top['title'] }}</h3>
+                                    <p class="text-slate-300 text-sm line-clamp-2 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">{{ $top['desc'] }}</p>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center text-white text-[10px] font-bold">{{ substr($top['auth'], 0, 1) }}</div>
+                                            <span class="text-white font-medium text-sm">{{ $top['auth'] }}</span>
+                                        </div>
+                                        <div class="bg-white text-slate-900 w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+
+        </div> <div class="py-16  mb-20 relative">
             
+            <div class="container mx-auto max-w-[1600px] px-4 md:px-10 mb-10 text-center">
+               
+                <h2 class="text-2xl font-bold text-slate-800 mt-2">Karya Lainnya</h2>
+            </div>
 
             <div class="flex gap-6 mb-6 w-max animate-marquee relative z-10">
                 @foreach(range(1, 12) as $i)
@@ -133,41 +181,6 @@
 
             
         </div>
-        <div class="container mx-auto max-w-[1600px]">
-
-            @php
-            $projects = [
-                ['title' => 'Smart Garden IoT', 'auth' => 'Santri Tech', 'img' => 'https://picsum.photos/400/600?random=1'],
-                ['title' => 'Branding Kit 2026', 'auth' => 'Multimedia', 'img' => 'https://picsum.photos/400/400?random=2'],
-                ['title' => 'Dakwah Visual', 'auth' => 'Comic Studio', 'img' => 'https://picsum.photos/400/550?random=3'],
-                ['title' => 'Masjid App UI', 'auth' => 'Fatih Dev', 'img' => 'https://picsum.photos/400/350?random=4'],
-                ['title' => 'Photography Class', 'auth' => 'Lens Santri', 'img' => 'https://picsum.photos/400/650?random=5'],
-                ['title' => 'Tahfidz Tracker', 'auth' => 'Mobile Div', 'img' => 'https://picsum.photos/400/450?random=6'],
-                ['title' => 'Cinematic Profile', 'auth' => 'Cinema Club', 'img' => 'https://picsum.photos/400/300?random=7'],
-                ['title' => '3D Kaligrafi', 'auth' => 'Art Lab', 'img' => 'https://picsum.photos/400/500?random=8'],
-            ];
-            @endphp
-
-            <div class="columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
-                @foreach($projects as $item)
-                    <div class="break-inside-avoid relative group rounded-3xl overflow-hidden cursor-pointer">
-                        <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-110">
-                        
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                            <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                <h3 class="text-white font-bold text-lg leading-tight mb-1 drop-shadow-md">{{ $item['title'] }}</h3>
-                                <div class="flex items-center gap-2 text-slate-200">
-                                    <span class="text-xs font-medium uppercase tracking-wider opacity-80">{{ $item['auth'] }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-
-        </div>
-        
 
     </main>
     <x-footer/>
