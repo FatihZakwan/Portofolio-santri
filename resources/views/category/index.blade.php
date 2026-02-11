@@ -59,16 +59,35 @@
 
     <main class="relative z-10 overflow-hidden pb-20">
         
-        <div class="py-16 mb-20 relative">
+    <div class="py-16 mb-20 relative">
              <div class="flex gap-6 mb-6 w-max animate-marquee relative z-10">
-                @foreach(range(1, 12) as $i)
-                    <div class="w-[300px] flex-shrink-0 h-[200px] rounded-2xl overflow-hidden relative group cursor-default shadow-sm border border-white/50 bg-white/30 backdrop-blur-sm">
-                        <img src="https://picsum.photos/300/200?random={{ $i + 100 }}" class="w-full h-full object-cover filter grayscale-[30%] group-hover:grayscale-0 transition-all duration-500">
+                @php
+                    // Ambil 10 project terbaru/acak untuk slider
+                    $sliderProjects = $projects->count() > 5 ? $projects : $projects->merge($projects)->merge($projects); 
+                @endphp
+
+                @foreach($sliderProjects as $sliderItem)
+                    <a href="{{ url('/detail-project/' . $sliderItem->id) }}" class="w-[300px] flex-shrink-0 h-[200px] rounded-2xl overflow-hidden relative group cursor-pointer shadow-sm border border-white/50 bg-white/30 backdrop-blur-sm block">
+                        
+                        <img src="{{ asset('storage/' . $sliderItem->thumbnail) }}" 
+                             alt="{{ $sliderItem->title }}" 
+                             class="w-full h-full object-cover filter grayscale-[30%] group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110">
+                        
                         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-10 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h4 class="font-bold text-white text-sm line-clamp-1 leading-tight mb-1">Project Santri #{{ $i }}</h4>
-                            <span class="text-xs text-slate-300 font-medium">by Kelas {{ rand(10,12) }}</span>
+                            
+                            <span class="text-[10px] font-bold text-orange-400 uppercase tracking-wider mb-1">
+                                {{ $sliderItem->sub_category }}
+                            </span>
+
+                            <h4 class="font-bold text-white text-sm line-clamp-1 leading-tight mb-1">
+                                {{ $sliderItem->title }}
+                            </h4>
+                            
+                            <span class="text-xs text-slate-300 font-medium truncate">
+                                by {{ is_array($sliderItem->authors) ? $sliderItem->authors[0] : $sliderItem->authors }}
+                            </span>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         </div>

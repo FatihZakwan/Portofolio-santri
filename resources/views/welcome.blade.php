@@ -118,7 +118,9 @@
                     <button id="load-more-btn" 
                             data-next-page="{{ $projects->nextPageUrl() }}" 
                             class="bg-white border border-slate-200 text-slate-600 px-8 py-3 rounded-full font-bold hover:bg-slate-50 hover:border-orange-300 hover:text-orange-500 hover:shadow-lg transition-all shadow-sm group">
-                        <span>Muat Lebih Banyak</span>
+                        
+                        <span>Tampilkan Lainnya</span>
+                        
                         <svg class="w-4 h-4 inline-block ml-1 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                 </div>
